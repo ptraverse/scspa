@@ -16,3 +16,7 @@ If there are any dependencies in package.json:
 	php -S 0.0.0.0:1234
 </code>
 
+http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:correlation_coeffici
+
+http://www.wtfdiary.com/2012/12/10-best-free-stock-chart-widgets-for.html
+

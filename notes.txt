@@ -1,14 +1,12 @@
-drag text stock correlator single page app aka SCSPA
+stock correlator single page app aka SCSPA
 
 one function = stock correlation value
 
-input gets ticker
+input gets ticker(s)
 add button adds valid ticker to list
 calculate button generates the matrix = pairwise values for all combinations in list of stocks
 and shows the chart with all of them
 time frame slider
-
-backbone + handlebars + (?)
 
 connect to some stock API:
 yahoo?other?
@@ -31,4 +29,8 @@ class stockService:
 	api_secret_key
 	api_url
 	..etc..
+
+wishlist
+-easy add spy and dow buttons
+-colors for numbers 
 
