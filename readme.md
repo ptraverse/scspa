@@ -7,6 +7,7 @@ See notes.txt.
 	git clone https://github.com/ptraverse/scspa.git
 </code> 
 
+If there are any dependencies in package.json:
 <code>
 	npm update
 </code>

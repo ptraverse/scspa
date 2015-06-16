@@ -1,0 +1,15 @@
+#reference-text-input {
+	
+}
+
+li {    
+    border: 1px solid #000;
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: top;
+    margin: 5px;
+    zoom: 1;
+    *display: inline;    
+    margin-top: auto;
+    margin-bottom: auto;
+}
