@@ -25,10 +25,10 @@
 		<hr>
 
 		
-		<h3> Test Stock Connection </h3>
+		<h3> Test YQL</h3>
 
 		<div id="stock-connection-test-div">
-			    <button id="test-connection" name="test-connection" class="btn btn-primary">Test</button>
+			    <button id="test-connection" name="test-connection" class="btn btn-primary">Yahoo YQL</button>
 			    <div id="response"></div>
 		</div>
 
@@ -36,7 +36,15 @@
 		<hr>
 
 
-		<h3> Combined Graph - use external tool </h3>
+		<h3> Twitter REST</h3>
+		<div>
+			<button id="test-twitter" name="test-twitter" class="btn btn-primary">Twitter</button>
+		</div>
+
+		<hr>
+
+
+		<!-- <h3> Combined Graph - use external tool </h3>
 		<div>
 			<i>TODO</i>
 		</div>
@@ -46,7 +54,7 @@
 		<h3> Correlation Function Result Grid </h3>
 		<div>
 			<i>TODO</i>
-		</div>
+		</div> !-->
 
 	</div>
 

@@ -4,7 +4,7 @@ $(document).ready( function () {
 	var addLi = function() {
 		var lis = $('ul#stocks-list > li').length;
 		var next = lis + 1;		
-		var text = $('input#reference-text-input').val();
+		var text = $('input#reference-text-input').val().toUpperCase();
 		var nextli = '<li id="li-'+next+'">'+text+'</li>';		
 		$('ul#stocks-list').append(nextli);
 		$('input#reference-text-input').val('');
@@ -16,11 +16,21 @@ $(document).ready( function () {
 	var addLiByString = function (inputString) {
 		$('input#reference-text-input').val(inputString);
 		addLi();
-	}
+	};
+
+	var _removeLiByString = function (symbol) {
+		var lis = $('li');
+		$.each(lis, function() {
+			var liText = $(this).text();			
+			if (liText==symbol) {
+				$(this).remove();
+			}
+		});
+	};							
 
 	//Binds Stuff for Text Input
 	var bindReferenceTextInput = function() {
-		//Capture Keyboard from Text Input
+		//Capture Keyboard from Text Input  
 		$('input#reference-text-input').keydown( function(event) {
 			if (event.which == 13) { //EnterKey
 				addLi();
@@ -49,21 +59,15 @@ $(document).ready( function () {
 
 	};
 
+
 	//Bind Click for the Test Yahoo API Connection Button
 	var bindTestConnectionButton = function() {
-
 		$('button#test-connection').click( function (event) {
 			$("#response").html('');		
-			var symbols = $('ul#stocks-list > li');
-			if (symbols.length === 0) {
-				addLiByString('IBM');
-				symbols = $('ul#stocks-list > li');
-			}
+			var symbols = _getSymbols();
 			$.each(symbols, function () {
 				var symbol = $(this).text();
-				console.log(symbol);
-				var yqlUrl = getYqlUrl("quote",symbol);		
-				console.log(yqlUrl);	
+				var yqlUrl = _getYqlUrl("quote",symbol);						
 				$.ajax({
 					url: yqlUrl,			
 					type: "GET",			
@@ -71,10 +75,18 @@ $(document).ready( function () {
 						var LastTradePriceOnly = json.query.results.quote.LastTradePriceOnly;
 						var Change = json.query.results.quote.Change;
 						var Name = json.query.results.quote.Name;
-						$("#response").append("<table>");
-						$("#response").append('<tr><td align="left">Latest Stock Price:</td><td>$'+LastTradePriceOnly+"</td></tr>");					
-						$("#response").append('<tr><td colspan="2" align="center"><i>'+Name+'</i></td></tr>');				
-						$("#response").append("</table>");
+						var Symbol = json.query.results.quote.Symbol;
+						if (!Name) {
+							$("#response").append("<table>");
+							$("#response").append('<tr><td align="left">No Results for '+Symbol+'</td></tr>');					
+							$("#response").append("</table>");							
+							_removeLiByString(Symbol);							
+						} else {
+							$("#response").append("<table>");
+							$("#response").append('<tr><td align="left">Latest Stock Price:</td><td>$'+LastTradePriceOnly+"</td></tr>");					
+							$("#response").append('<tr><td colspan="2" align="center"><i>'+Name+'</i></td></tr>');				
+							$("#response").append("</table>");
+						}
 					},
 					error: function(err){
 						alert("error!");
@@ -84,24 +96,61 @@ $(document).ready( function () {
 				});
 			});			
 			event.preventDefault();
-
 		});
-
 	};
 
-	var getYqlUrl = function(table,key)	{
+
+
+	var bindTestTwitterButton = function() {
+		$('button#test-twitter').click( function (event) {			
+			var symbols = _getSymbols();
+
+			$.each(symbols, function() {					
+				var s = $(this).text();				
+				$.ajax({
+					url: 'twitter_test.ajax.php',			
+					type: "GET",			
+					data: {
+						'symbol': s
+					},
+					success: function(json){				
+						console.log('success!');
+						console.log(json);
+					},
+					error: function(err){
+						alert("error!");
+					}
+				}).done(function(){
+					console.log('done');
+				});
+			});
+		});
+	};
+	
+	var _getYqlUrl = function(table,key)	{
 		if (table=="quote") {
 			var url = "https://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20yahoo.finance.quote%20WHERE%20symbol%3D'"+key+"'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
-		}
-		
+		}		
 		return url;
 	}
+
+
+	var _getSymbols = function () {
+		symbols = $('ul#stocks-list > li');
+		if (symbols.length === 0) {
+			addLiByString('IBM');
+			symbols = $('ul#stocks-list > li');
+		}		
+		return symbols;
+	};
+
 
 	var init = function() {		
 		//Bind All That Shit
 		bindReferenceTextInput();
 		bindStockListLi();		
 		bindTestConnectionButton();
+		bindTestTwitterButton();
 		$('input#reference-text-input').focus();				
 	};
 
