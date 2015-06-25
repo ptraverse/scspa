@@ -1,4 +1,4 @@
-## SCSPA aka Stock Correlator SinglePageApp ##
+## SCSPA aka Tweet Correlator SinglePageApp ##
 
 See notes.txt.
 
@@ -12,11 +12,12 @@ If there are any dependencies in package.json:
 	npm update
 </code>
 
+If there are any dependencies in p
+
 <code>
 	php -S 0.0.0.0:1234
 </code>
 
 http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:correlation_coeffici
-
-http://www.wtfdiary.com/2012/12/10-best-free-stock-chart-widgets-for.html
-
+http://www.stat.berkeley.edu/~aldous/Research/Ugrad/Amy_Zhang.pdf
+https://dev.twitter.com/rest/reference/get/search/tweets
