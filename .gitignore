@@ -1,3 +1,2 @@
 node_modules/
-/vendor/
-keys.inc.php
+private*
