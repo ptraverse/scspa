@@ -1,7 +1,7 @@
 $(document).ready( function () {
 
 	//Add to List
-	function addLi() {
+	var addLi = function() {
 		var lis = $('ul#stocks-list > li').length;
 		var next = lis + 1;
 		var text = $('input#reference-text-input').val().toUpperCase();
@@ -10,14 +10,14 @@ $(document).ready( function () {
 		$('input#reference-text-input').val('');
 		$('input#reference-text-input').focus();
 		bindStockListLi(); //Re run bind function so new element has functionaliity
-	}
+	};
 
-	function addLiByString(inputString) {
+	var addLiByString = function(inputString) {
 		$('input#reference-text-input').val(inputString);
 		addLi();
-	}
+	};
 
-	function _removeLiByString(symbol) {
+	var _removeLiByString = function(symbol) {
 		var lis = $('li');
 		$.each(lis, function() {
 			var liText = $(this).text();
@@ -25,10 +25,10 @@ $(document).ready( function () {
 				$(this).remove();
 			}
 		});
-	}
+	};
 
 	//Binds Stuff for Text Input
-	function bindReferenceTextInput() {
+	var bindReferenceTextInput = function() {
 		//Capture Keyboard from Text Input
 		$('input#reference-text-input').keydown( function(event) {
 			if (event.which == 13) { //EnterKey
@@ -37,10 +37,10 @@ $(document).ready( function () {
 				// console.log(event);
 			}
 		});
-	}
+	};
 
 	//Binds Everything for stock list elem's
-	function bindStockListLi() {
+	var bindStockListLi = function() {
 
 		//Remove items from list on click
 		$('ul#stocks-list > li').click(function () {
@@ -55,10 +55,10 @@ $(document).ready( function () {
 				$(this).css('background-color', '');
 			});
 		});
-	}
+	};
 
 	//Bind Click for the Test Yahoo API Connection Button
-	function bindTestConnectionButton() {
+	var bindTestConnectionButton = function() {
 		$('button#test-connection').click( function (event) {
 			$("#response").html('');
 			var symbols = _getSymbols();
@@ -94,9 +94,9 @@ $(document).ready( function () {
 			});
 			event.preventDefault();
 		});
-	}
+	};
 
-	function bindTestTwitterButton() {
+	var bindTestTwitterButton = function() {
 		$('button#test-twitter').click( function (event) {
 			var symbols = _getSymbols();
 
@@ -120,24 +120,24 @@ $(document).ready( function () {
 				});
 			});
 		});
-	}
+	};
 
-	function _getYqlUrl(table,key) {
+	var _getYqlUrl = function(table,key) {
 		var url = "https://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20yahoo.finance.quote%20WHERE%20symbol%3D'"+key+"'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
 		return url;
-	}
+	};
 
 
-	function _getSymbols() {
+	var _getSymbols = function() {
 		symbols = $('ul#stocks-list > li');
 		if (symbols.length === 0) {
 			addLiByString('IBM');
 			symbols = $('ul#stocks-list > li');
 		}
 		return symbols;
-	}
+	};
 
-	function init() {
+	var init = function() {
 		//Bind All That Shit
 		bindReferenceTextInput();
 		bindStockListLi();
