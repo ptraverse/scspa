@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/ptraverse/scspa",
   "dependencies": {
-        
+	"express": "*",
+	"jade": "*",
+	"nodemon": "*"        
   }  
 }
