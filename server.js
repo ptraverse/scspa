@@ -10,13 +10,7 @@ app.use(express.static(__dirname + '/public'));
 //Routes
 //Route: Root
 app.get('/', function (req, res) {
-  console.log("Hello World!");
   var html = jade.renderFile('templates/index.jade');
-	res.send(html);
-});
-//Route: tt "totaltweets"
-app.get('/tt', function (req, res) {
-	var html = jade.renderFile('templates/total_tweets.jade');
 	res.send(html);
 });
 
